@@ -1,0 +1,10 @@
+serj-back/
+serj-consumer/
+serj-front/
+serj-bot/
+serj-ml/
+serj-calling/
+
+.env
+*.env
+*.sh
