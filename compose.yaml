@@ -1,0 +1,50 @@
+services:
+
+  frontend:
+    container_name: frontend
+    build: ./serj-front
+    restart: unless-stopped
+    expose:
+      - 3000
+    command: serve -s /usr/src/app/build -l 3000
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.13-management
+    hostname: rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "${RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS}"
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+  
+  db:
+    container_name: db
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    ports:
+      - 5632:5632
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # TODO: add healthcheck
+  
+  tgbot:
+    container_name: tgbot
+    build: ./serj-bot
+    restart: unless-stopped
+    environment:
+      BOT_TOKEN: "${BOT_TOKEN}"
+
+volumes:
+  rabbitmq: {}
+  pgdata: {}
+  # TODO: give names to all volumes
