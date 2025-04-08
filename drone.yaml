@@ -33,7 +33,7 @@ steps:
   - name: Pull the repository
     commands:
       - cd /root/serj
-      - git pull --rebase ssh://git@github.com/Serj-Conserj/serj-service
+      - git pull --rebase
   
   - name: Restart compose and rebuild related services
     commands:
