@@ -7,6 +7,13 @@ services:
     expose:
       - 3000
     command: serve -s /usr/src/app/build -l 3000
+  
+  consumer:
+    container_name: consumer
+    build: ./serj-consumer
+    restart: unless-stopped
+    volumes:
+      - consumer:/var/lib/queue-consumer/logs
 
   rabbitmq:
     container_name: rabbitmq
@@ -32,10 +39,10 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     ports:
-      - 5432:5432
+      - 5432:5432 # Do not change
     volumes:
       - pgdata:/var/lib/postgresql/data
-    # TODO: add healthcheck
+    # TODO: Add healthcheck
   
   tgbot:
     container_name: tgbot
@@ -43,8 +50,24 @@ services:
     restart: unless-stopped
     environment:
       BOT_TOKEN: "${BOT_TOKEN}"
+  
+  drone_server:
+    container_name: drone_server
+    image: drone/drone:2.26-linux-amd64
+    restart: unless-stopped
+    expose:
+      - 80 # Drone is hardcoded to 80, no way to change
+    environment:
+      DRONE_GITHUB_CLIENT_ID: "${DRONE_GITHUB_CLIENT_ID}"
+      DRONE_GITHUB_CLIENT_SECRET: "${DRONE_GITHUB_CLIENT_SECRET}"
+      DRONE_RPC_SECRET: "${DRONE_RPC_SECRET}"
+      DRONE_SERVER_HOST: "${DRONE_SERVER_HOST}"
+      DRONE_SERVER_PROTO: "${DRONE_SERVER_PROTO}"
+    volumes:
+      - /var/lib/drone:/data
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   rabbitmq: {}
   pgdata: {}
-  # TODO: give names to all volumes
+  # TODO: Give names to all volumes

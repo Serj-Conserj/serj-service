@@ -1,0 +1,48 @@
+#TODO: Testing
+
+# kind: pipeline
+# type: docker
+# name: docker_runner_test
+
+# steps:
+#   - name: Ubuntu winner run
+#     image: ubuntu:20.04
+#     commands:
+#       - echo "NICE NICE NICE"
+
+# ---
+kind: pipeline
+type: exec
+name: serj-service_delivery
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  branch:
+    - develop #TODO: When merging to main needs to be replaced (bad situation). Maybe make .env?
+  event:
+    - push
+    - merge
+
+clone:
+  disable: true
+
+steps:
+  - name: Pull the repository
+    commands:
+      - cd /root/serj
+      - git pull --rebase ssh://git@github.com/Serj-Conserj/serj-service
+  
+  - name: Restart compose and rebuild related services
+    commands:
+      - cd /root/serj
+      - docker compose up -d --build #TODO: List necessary services
+
+  - name: Remove old images
+    commands:
+      - docker image prune -f
+
+# depends_on:
+#   - docker_runner_test
