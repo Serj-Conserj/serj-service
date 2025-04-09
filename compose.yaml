@@ -34,6 +34,8 @@ services:
     restart: unless-stopped
     volumes:
       - consumer:/var/lib/queue-consumer/logs
+    depends_on:
+      - backend
 
   frontend:
     container_name: frontend
@@ -42,6 +44,8 @@ services:
     expose:
       - 3000
     command: serve -s /usr/src/app/build -l 3000
+  depends_on:
+    - backend
 
   nginx:
     container_name: nginx
