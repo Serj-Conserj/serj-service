@@ -1,6 +1,6 @@
 # Add registry authentication
-registry:
-  docker.io:
+x-registry-auth:
+  registry.docker.io:
     username: ${DOCKER_USERNAME}
     password: ${DOCKER_PASSWORD}
 
