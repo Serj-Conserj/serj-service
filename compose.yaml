@@ -119,4 +119,5 @@ services:
 volumes:
   rabbitmq: {}
   pgdata: {}
+  consumer: {}
   # TODO: Give names to all volumes
