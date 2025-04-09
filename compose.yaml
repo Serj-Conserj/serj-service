@@ -22,7 +22,7 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       PG_PORT: "${PG_PORT}"
-      PG_HOST: "db"
+      POSTGRES_HOST: "db"
       PGDATA: "${PGDATA}"
     depends_on:
       - db
@@ -47,6 +47,8 @@ services:
     depends_on:
       - backend
 
+  #TODO: Fix port error
+  #failed to set up container networking: driver failed programming external connectivity on endpoint nginx (1492933c5283bd2891840c856fdc32ade8a3908b67fe3d7e4bb865ab34eb51c6): failed to bind host port for 0.0.0.0:80:172.18.0.9:80/tcp: address already in use
   nginx:
     container_name: nginx
     build: ./nginx
