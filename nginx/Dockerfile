@@ -12,9 +12,9 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
 
-# Install bash for the bash-specific entrypoint
+# Install bash for bash-specific entrypoint (Alpine-based)
 WORKDIR /
-RUN apt-get update && apt-get install -y bash
+RUN RUN apk update && apk add --no-cache bash
 
 ENTRYPOINT ["/bin/bash", "-c", "/nginx-entrypoint.sh"]
 
