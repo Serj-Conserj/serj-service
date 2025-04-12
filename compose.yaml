@@ -18,9 +18,9 @@ services:
       USERNAME_QUEUE: "${USERNAME_QUEUE}"
       PASSWORD_QUEUE: "${PASSWORD_QUEUE}"
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "${RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS}"
-      RABBITMQ_HOST: "${RABBITMQ_HOST}"
-      POSTGRES_DB: "${POSTGRES_DB}"
-      POSTGRES_USER: "${POSTGRES_USER}"
+      RABBITMQ_HOST:  "${RABBITMQ_HOST}"
+      POSTGRES_DB:    "${POSTGRES_DB}"
+      POSTGRES_USER:  "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       PG_PORT: "${PG_PORT}"
       POSTGRES_HOST: "db"
@@ -34,13 +34,13 @@ services:
     build: ./serj-consumer
     restart: unless-stopped
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_USER:      "${POSTGRES_USER}"
+      POSTGRES_PASSWORD:  "${POSTGRES_PASSWORD}"
+      POSTGRES_HOST:      "${POSTGRES_HOST}"
       PG_PORT: "${PG_PORT}"
-      POSTGRES_DB: "${POSTGRES_DB}"
-      RABBITMQ_HOST: "${RABBITMQ_HOST}"
-      RABBITMQ_PORT: "${RABBITMQ_PORT}"
+      POSTGRES_DB:    "${POSTGRES_DB}"
+      RABBITMQ_HOST:  "${RABBITMQ_HOST}"
+      RABBITMQ_PORT:  "${RABBITMQ_PORT}"
       USERNAME_QUEUE: "${USERNAME_QUEUE}"
       PASSWORD_QUEUE: "${PASSWORD_QUEUE}"
       CALL_QUEUE: "${CALL_QUEUE}"
@@ -107,8 +107,8 @@ services:
     image: postgres:17
     restart: unless-stopped
     environment:
-      POSTGRES_DB: "${POSTGRES_DB}"
-      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_DB:    "${POSTGRES_DB}"
+      POSTGRES_USER:  "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     ports:
       - 5432:5432 # Do not change
@@ -130,10 +130,10 @@ services:
     expose:
       - 80 # Drone is hardcoded to 80, no way to change
     environment:
-      DRONE_GITHUB_CLIENT_ID: "${DRONE_GITHUB_CLIENT_ID}"
+      DRONE_GITHUB_CLIENT_ID:     "${DRONE_GITHUB_CLIENT_ID}"
       DRONE_GITHUB_CLIENT_SECRET: "${DRONE_GITHUB_CLIENT_SECRET}"
-      DRONE_RPC_SECRET: "${DRONE_RPC_SECRET}"
-      DRONE_SERVER_HOST: "${DRONE_SERVER_HOST}"
+      DRONE_RPC_SECRET:   "${DRONE_RPC_SECRET}"
+      DRONE_SERVER_HOST:  "${DRONE_SERVER_HOST}"
       DRONE_SERVER_PROTO: "${DRONE_SERVER_PROTO}"
     volumes:
       - /var/lib/drone:/data
@@ -145,4 +145,3 @@ volumes:
   consumer: {}
   certbot-www: {}
   certbot-conf: {}
-  # TODO: Give names to all volumes

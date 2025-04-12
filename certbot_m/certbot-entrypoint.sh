@@ -10,8 +10,8 @@ CERT_PATH="/etc/letsencrypt/live"
 for i in "${!DOMAINS[@]}"; do
   DOMAIN="${DOMAINS[$i]}"
 
-  #TODO: Check the certs by valid files
   # Check certs by ensuring respective directory exists
+  #TODO: Check the certs by valid files
   if [ -d "$CERT_PATH/$DOMAIN" ]; then
     echo "[OK] Certificate for $DOMAIN already exists. Skipping issuance."
   else

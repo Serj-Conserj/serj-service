@@ -28,7 +28,7 @@ if ! check_certs; then
   cp /nginx-http.conf /etc/nginx/conf.d/default.conf
   nginx -g 'daemon off;' # Run Nginx with global directives and daemon off
 
-  #TODO: Fix the issue with certs updates not visible to nginx container
+  #TODO: Fix the issue with certs updates not visible (endless while, case when no certs found)
   while ! check_certs; do
     echo "[WAIT] Certificates not found. Waiting 5sec..."
     sleep 5
