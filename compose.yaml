@@ -68,8 +68,8 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./certbot/www/:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/letsencrypt/:ro
+      - certbot-www:/var/www/certbot/:ro
+      - certbot-conf:/etc/letsencrypt/:ro
     depends_on:
       - frontend
       - drone_server
@@ -82,8 +82,8 @@ services:
     build: ./certbot_m
     restart: unless-stopped
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - certbot-www:/var/www/certbot/:rw
+      - certbot-conf:/etc/letsencrypt/:rw
     depends_on:
       - nginx
 
@@ -93,8 +93,8 @@ services:
     hostname: rabbitmq
     restart: unless-stopped
     environment:
-      RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
-      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
+      RABBITMQ_DEFAULT_USER: "${USERNAME_QUEUE}"
+      RABBITMQ_DEFAULT_PASS: "${PASSWORD_QUEUE}"
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "${RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS}"
     ports:
       - 15672:15672
@@ -143,4 +143,6 @@ volumes:
   rabbitmq: {}
   pgdata: {}
   consumer: {}
+  certbot-www: {}
+  certbot-conf: {}
   # TODO: Give names to all volumes
