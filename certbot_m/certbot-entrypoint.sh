@@ -13,7 +13,7 @@ for i in "${!DOMAINS[@]}"; do
   #TODO: Check the certs by valid files
   # Check certs by ensuring respective directory exists
   if [ -d "$CERT_PATH/$DOMAIN" ]; then
-    echo "[OK] Certificate for $DOMAIN already exists. Skipping initial issuance."
+    echo "[OK] Certificate for $DOMAIN already exists. Skipping issuance."
   else
     echo "[ISSUE] No certificates found for $DOMAIN. Attempting to issue..."
     certbot certonly --webroot --webroot-path /var/www/certbot \

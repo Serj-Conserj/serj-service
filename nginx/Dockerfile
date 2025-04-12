@@ -1,7 +1,8 @@
 #TODO: Reconsider Nginx version
 FROM nginx:alpine
 
-# Copy nginx configs #TODO: Make cleaner (copy to appropriate directory of inactive configs)
+# Copy nginx configs
+#TODO: Make cleaner (copy to appropriate directory of inactive configs)
 COPY nginx-http.conf /nginx-http.conf
 COPY nginx-https.conf /nginx-https.conf
 
