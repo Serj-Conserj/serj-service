@@ -12,6 +12,6 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
 
-ENTRYPOINT ["/bin/sh", "-c", "/nginx-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "/nginx-entrypoint.sh"]
 
 WORKDIR /usr/src/app

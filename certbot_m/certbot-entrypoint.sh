@@ -1,7 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 EMAIL="gromaks000@gmail.com"
-DOMAINS=("conserj.ru" "drone.conserj.ru")
+DOMAINS=(
+  "conserj.ru"
+  "drone.conserj.ru"
+)
 CERT_PATH="/etc/letsencrypt/live"
 
 for i in "${!DOMAINS[@]}"; do

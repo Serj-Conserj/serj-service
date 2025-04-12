@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Prevents Nginx from starting until the certs files are available
 while [ ! -f "/etc/letsencrypt/live/conserj.ru/fullchain.pem" ] || \
       [ ! -f "/etc/letsencrypt/live/drone.conserj.ru/fullchain.pem" ]; do
