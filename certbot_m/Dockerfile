@@ -5,6 +5,6 @@ COPY certbot-entrypoint.sh /certbot-entrypoint.sh
 RUN chmod +x /certbot-entrypoint.sh
 
 # Install bash for bash-specific entrypoint (Alpine-based)
-RUN RUN apk update && apk add --no-cache bash
+RUN apk update && apk add --no-cache bash
 
 ENTRYPOINT ["/bin/bash", "-c", "/certbot-entrypoint.sh"]
