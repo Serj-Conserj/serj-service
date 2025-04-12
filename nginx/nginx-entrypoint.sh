@@ -8,4 +8,4 @@
 # done
 
 # Run Nginx with global directives and daemon off
-nginx -g 'daemon off'
+nginx -g 'daemon off;'
