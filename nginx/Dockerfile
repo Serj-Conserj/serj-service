@@ -1,8 +1,9 @@
 #TODO: Reconsider Nginx version
 FROM nginx:alpine
 
-# Copy nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy nginx configs #TODO: Make cleaner (copy to appropriate directory of inactive configs)
+COPY nginx-http.conf /nginx-http.conf
+COPY nginx-https.conf /nginx-https.conf
 
 # Copy the entrypoint and make it executable
 COPY nginx-entrypoint.sh /nginx-entrypoint.sh
