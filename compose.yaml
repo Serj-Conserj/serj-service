@@ -60,6 +60,7 @@ services:
       - ./certbot/conf/:/etc/letsencrypt/:ro
     depends_on:
       - frontend
+      - drone_server
     # TODO: make cron to auto update 
     # Перезапустит nginx контейнер каждые 24 часа и подгрузит новые сертификаты, если есть 
     # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!};' nginx -s reload; done & nginx -g 'daemon off;'"
