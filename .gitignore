@@ -4,6 +4,5 @@ serj-front/
 serj-bot/
 serj-ml/
 serj-calling/
-certbot/
 
 *.env
