@@ -1,14 +1,17 @@
+#TODO: Reconsider Nginx version
 FROM nginx:alpine
 
-# Copy config nginx
+# Copy nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /usr/share/nginx/html
+COPY nginx-entrypoint.sh /nginx-entrypoint.sh
+# Ensure the entrypoint is executable
+RUN chmod +x /nginx-entrypoint.sh
 
+WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
 
-# Container run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/bin/sh", "-c", "/nginx-entrypoint.sh"]
 
 WORKDIR /usr/src/app

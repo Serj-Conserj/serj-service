@@ -1,5 +1,6 @@
-# Add registry authentication
+# Registry authentication
 x-registry-auth:
+
   registry.docker.io:
     username: ${DOCKER_USERNAME}
     password: ${DOCKER_PASSWORD}
@@ -47,8 +48,6 @@ services:
     depends_on:
       - backend
 
-  #TODO: Fix port error
-  #failed to set up container networking: driver failed programming external connectivity on endpoint nginx (1492933c5283bd2891840c856fdc32ade8a3908b67fe3d7e4bb865ab34eb51c6): failed to bind host port for 0.0.0.0:80:172.18.0.9:80/tcp: address already in use
   nginx:
     container_name: nginx
     build: ./nginx
@@ -61,20 +60,18 @@ services:
       - ./certbot/conf/:/etc/letsencrypt/:ro
     depends_on:
       - frontend
-      - drone_server
+      - certbot
     # TODO: make cron to auto update 
     # Перезапустит nginx контейнер каждые 24 часа и подгрузит новые сертификаты, если есть 
     # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!};' nginx -s reload; done & nginx -g 'daemon off;'"
 
   certbot:
     container_name: certbot
-    image: certbot/certbot:latest
+    build: ./certbot_m
     restart: unless-stopped
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
-    # Проверяет каждые 12 часов, нужны ли новые сертификаты:
-    entrypoint:  "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   rabbitmq:
     container_name: rabbitmq
@@ -85,11 +82,11 @@ services:
       RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
       RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "${RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS}"
-    volumes:
-      - rabbitmq:/var/lib/rabbitmq
     ports:
       - 15672:15672
       - 5672:5672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
   
   db:
     container_name: db
