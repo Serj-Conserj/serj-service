@@ -38,9 +38,9 @@ steps:
   - name: Restart compose and rebuild related services
     commands:
       - cd /root/serj
-      - docker compose up -d --build #TODO: List necessary services
+      - docker compose up -d --build nginx certbot
 
-  - name: Remove old images
+  - name: Remove unused images
     commands:
       - docker image prune -f
 
