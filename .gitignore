@@ -6,3 +6,4 @@ serj-ml/
 serj-calling/
 
 *.env
+.vscode
