@@ -80,10 +80,7 @@ services:
     container_name: db
     image: postgres:17
     restart: unless-stopped
-    environment:
-      POSTGRES_DB:    "${POSTGRES_DB}"
-      POSTGRES_USER:  "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    env_file: .env
     ports:
       - 5432:5432 # Do not change
     volumes:
@@ -128,8 +125,7 @@ services:
     container_name: tgbot
     build: ./serj-bot
     restart: unless-stopped
-    environment:
-      BOT_TOKEN: "${BOT_TOKEN}"
+    env_file: .env
   
   drone_server:
     container_name: drone_server
