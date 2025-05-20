@@ -7,3 +7,5 @@ serj-calling/
 
 *.env
 .vscode
+
+vpn/
