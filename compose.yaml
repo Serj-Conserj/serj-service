@@ -17,13 +17,13 @@ services:
       - db
       - rabbitmq
   
-  consumer:
-    container_name: consumer
-    build: ./serj-consumer
-    restart: unless-stopped
-    env_file: .env
-    depends_on:
-      - selenium
+  # consumer:
+  #   container_name: consumer
+  #   build: ./serj-consumer
+  #   restart: unless-stopped
+  #   env_file: .env
+  #   depends_on:
+  #     - selenium
   
   frontend:
     container_name: frontend
