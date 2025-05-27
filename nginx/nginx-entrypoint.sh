@@ -24,17 +24,17 @@ check_certs() {
 
 # If no certs, start with HTTP-only config
 if ! check_certs; then
-  echo "[ISSUE] Certificates not found. Start with HTTP-only config."
+  echo "[INFO] Certificates not found. Start with HTTP-only config."
   cp /nginx-http.conf /etc/nginx/conf.d/default.conf
-  nginx -g 'daemon off;' # Run Nginx with global directives and daemon off
+  nginx # Run in the background
 
   #TODO: Fix the issue with certs updates not visible (endless while, case when no certs found)
   while ! check_certs; do
-    echo "[WAIT] Certificates not found. Waiting 5sec..."
+    echo "[INFO] Certificates not found. Sleeping 10sec..."
     sleep 10
   done
 
-  echo "[DONE] Certificates detected. Switching to HTTPS config..."
+  echo "[OK] Certificates detected. Switching to HTTPS config..."
   cp /etc/nginx/nginx-https.conf /etc/nginx/conf.d/default.conf
   nginx -s reload
 
@@ -46,5 +46,3 @@ else
   cp /nginx-https.conf /etc/nginx/conf.d/default.conf
   nginx -g 'daemon off;'
 fi
-
-#TODO: Add certs renewal checking 24h loop
