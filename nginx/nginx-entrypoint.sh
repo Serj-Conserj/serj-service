@@ -7,7 +7,7 @@ DOMAINS=(
 CERT_PATH="/etc/letsencrypt/live"
 
 
-# Function to check if certificates exist and are valid
+# Checks if certificates exist
 check_certs() {
   if [ -d "$CERT_PATH/${DOMAINS[0]}" ]               &&
      [ -d "$CERT_PATH/${DOMAINS[1]}" ]               && 
@@ -28,7 +28,6 @@ if ! check_certs; then
   cp /nginx-http.conf /etc/nginx/conf.d/default.conf
   nginx # Run in the background
 
-  #TODO: Fix the issue with certs updates not visible (endless while, case when no certs found)
   while ! check_certs; do
     echo "[INFO] Certificates not found. Sleeping 10sec..."
     sleep 10

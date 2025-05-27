@@ -11,7 +11,7 @@ CERT_PATH="/etc/letsencrypt/live"
 for i in "${!DOMAINS[@]}"; do
     DOMAIN="${DOMAINS[$i]}"
 
-    if [ -d "$CERT_PATH/$DOMAIN" ]              &&
+    if [ -d "$CERT_PATH/$DOMAIN" ]               &&
        [ -f "$CERT_PATH/$DOMAIN/fullchain.pem" ] &&
        [ -f "$CERT_PATH/$DOMAIN/privkey.pem" ]; then
         echo "[OK] Certificate for $DOMAIN already exists. Skipping issuance."
