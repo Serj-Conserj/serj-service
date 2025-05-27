@@ -31,7 +31,7 @@ if ! check_certs; then
   #TODO: Fix the issue with certs updates not visible (endless while, case when no certs found)
   while ! check_certs; do
     echo "[WAIT] Certificates not found. Waiting 5sec..."
-    sleep 5
+    sleep 10
   done
 
   echo "[DONE] Certificates detected. Switching to HTTPS config..."
