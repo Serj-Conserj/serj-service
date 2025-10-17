@@ -3,7 +3,7 @@
 EMAIL="gromaks000@gmail.com"
 DOMAINS=(
     "dev-conserj.ru"
-    "drone.conserj.ru"
+    "drone.dev-conserj.ru"
 )
 CERT_PATH="/etc/letsencrypt/live"
 
