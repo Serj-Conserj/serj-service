@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOMAINS=(
-  "conserj.ru"
+  "dev-conserj.ru"
   "drone.conserj.ru"
 )
 CERT_PATH="/etc/letsencrypt/live"
